@@ -14,6 +14,7 @@ Follow files are required to be cusomized for each data source. Each pipeline, w
 All application settings are configured through YML files in the ```src/main/resources/conf/application.yml.{env}```. They are different sessions for Spark, Hive, Elastic settings applied to the whole project.
 
 # Data Source/Target Configurations
+In the following sessions, we'll introduce how to configurate the source/target config files in ```src/main/resources/conf/app_{APP_CODE}.yml```.
 ## Generic Source Configuration Keys
 Following yml keys are supported for reading different data sources.
 |Key            |Request  |Default| Functions|
