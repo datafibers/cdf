@@ -1,4 +1,4 @@
-![](doc/data-framework-logo.png)
+<p align="left"><img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" width="100">   <img src="https://miro.medium.com/max/9074/1*RoFb2sFULMV-gnOy727FoQ.png" width="400"></p>
 
 COSP Data Framework (CDF) is designed to be a generic data processing framework to read various of data source, such as hive, flat files, database, elastic search, Kafka, etc), perform across data source transformation, and write to the different destinations. CDP is implemented using Scala and Apache Spark.
 
