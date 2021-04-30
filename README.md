@@ -11,3 +11,11 @@ Follow files are required to be cusomized for each data source. Each pipeline, w
 |src/test/resources/setup/tsql_${APP_CODE}.sql| data source specific test data preparision file|
 
 # Appliction Configurations
+All application settings are configured through YML files in the ```src/main/resources/conf/application.yml.{env}```. They are different sessions for Spark, Hive, Elastic settings applied to the whole project.
+
+# Data Source/Target Configurations
+## Generic Source Configuration Keys
+Following yml keys are supported for reading different data sources.
+|Key            |Request  |Default| Functions|
+|-----------|----------|-----------|----------|
+|database|optional|default|hive database name. Can also be specified with table name, such as, database_name.table_name|
