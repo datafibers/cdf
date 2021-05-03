@@ -1,0 +1,14 @@
+*.iml
+*.sc
+*.DS_Store
+*.log*
+logs
+target
+output
+.idea/*
+.idea_modules
+.classpath
+.project
+.settings
+test_report
+*metastore_db*
