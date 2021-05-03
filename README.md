@@ -44,7 +44,7 @@ Following yml keys are supported for writing different data targets.
 
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
-|`disabled`|optional|false|diable this target's config|
+|`disabled`|optional|false|disable this target's config|
 |`outputs`|optional| |when it is specified, you can define multiple output under this key|
 |`output`|implicit| |output file root path in HDFS/ELASTIC. By default it gets value from `${DE_OUTPUT_ROOT_PATH}`|
 |`output_log`|implicit| |output log root path in HDFS. By default it gets value from `${DE_LOG_ROOT_PATH}`|
@@ -56,3 +56,26 @@ Following yml keys are supported for writing different data targets.
 |`idx_purge_on_time`|optional|false |when index is created with `@timestamp`, old indices are removed when it is `true`.|
 |`idx_alias_create`|optional|false |whether to create alias|
 |`idx_alias`|optional|idx_name|alias of the index, by default it is index name without timestamp|
+|`idx_setting`|optional|  |whether to add setting section during index creation|
+|`idx_map_rule`|optional| |type - generate mapping from dataframe data type. name - generate mapping from column postfix, such as address--idxm-keyword|
+|`idx_type_else`|optional|text:dummy|this is requested when `idx_create` is `true`. For example, text:col1,col2, this is to set column with string type for col1 and col2 as text. For other string type columns, set it as keyword.|
+|`idx_prop_ov`|optional|  |this is where to pass whole json string as mapping properties to overwrite auto generated index mappings|
+
+## Other Application Configuration Keys
+|Key            |Request  |Default| Functions|
+|-----------|----------|-----------|----------|
+|`job_disabled`|optional|false|disable this application code job by skipping it.|
+|`dry_run`|optional|false|verify the job without running the job.|
+|`cob_discover`|optional|false|auto discover the cob in yyyy-MM-dd from source read.|
+|`lookback_defalt`|optional| |default lookback value for all source data.|
+|`sql_resource_root`|optional|../sql|default location where to read the sql files|
+|`sql_file_part`|optional||specify how many sql partial files to read in bulk|
+|`sql_init`|optional|false|true, load `init.sql` ahead running all other sql files.|
+|`sql_init_global`|optional|false|true, load `AppDefaultConfig.GLOBAL_INIT_SQL` ahead running all other sql files.|
+|`sql_casesensitive`|optional|false|same to Spark sql case sensitive setting|
+|`app_name`|implicit||application name|
+|`app_code`|implicit||application code|
+
+**Note:**
+1. when `output_type` is elastic, the `etl_es_id` in the dataframe maps to `es.mapping.id`, which is the key of index.
+1. when `output_type` is elastic, the `etl_batch_id` defines how many batch to divide and load data to elastic in sequence.
