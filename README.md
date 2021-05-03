@@ -122,7 +122,13 @@ The list of environment variable supported in `env.properties` are as follows
 
 # Run the Application
 CDF can run the job in local or cluster mode by following setting.
-```aidl
+```shell
 export CONFIG_SPARK_MASTER=local
 export CONFIG_SPARK_MASTER=yarn-cluster
+```
+To run the job, there are three options as follows.
+```shell
+./cdf_processing.sh ${app_code}
+./cdf_processing.sh ${app_code} ${cob/closed_business_date}
+./cdf_processing.sh ${app_code} ${cob/closed_business_date}  ${spark_executor} ${spark_cores} ${cob/spark_executor_memory} ${cob/spark_driver_memory}
 ```
