@@ -31,7 +31,7 @@ Following yml keys are supported for reading different data sources. These keys 
 ## Flat File Specific Configuration Keys
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
-|`path`|mandatory| |the path where to read the file. * is supported to match all.|
+|`path`|mandatory| |the path where to read the file. `*` is supported to match all.|
 |`delimitor`|optional| `\|`|file fields delimitor |
 |`quote`|optional|`""`|file quote|
 |`optional_fields`|optional||list of comma seperated columns when they are not avaliable in source giving default value as placeholder |
@@ -40,6 +40,10 @@ Following yml keys are supported for reading different data sources. These keys 
 Following yml keys are supported for writing different data targets.
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
-|`outputs`|optional| |when it is specified, you can define multiple output under this key|
-|`output`|implicit| |output file root path in HDFS/ELASTIC. By default it gets value from `${DE_OUTPUT_ROOT_PATH}`.|
 |`disabled`|optional|false|diable this target's config|
+|`outputs`|optional| |when it is specified, you can define multiple output under this key|
+|`output`|implicit| |output file root path in HDFS/ELASTIC. By default it gets value from `${DE_OUTPUT_ROOT_PATH}`|
+|`output_log`|implicit| |output log root path in HDFS. By default it gets value from `${DE_LOG_ROOT_PATH}`|
+|`output_type`|optional|csv|output type supported, such as csv, paruqet, avro, json, hive, elastic.|
+|`output_partition`|optional| |output partition by column name. By default without partition column, output is partitioned by `run_date`.|
+
