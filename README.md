@@ -4,6 +4,7 @@ COSP Data Framework (CDF) is designed to be a generic data processing framework 
 
 # Data Source Specific Files
 Follow files are required to be cusomized for each data source. Each pipeline, which reads, transform, and write data, is called a application. Here, we use ```APP_CODE``` to identify each application.
+
 | File Name | Functions|
 |-----------|----------|
 |`src/main/resources/conf/app_{APP_CODE}.yml`| data source specific configuration file|
@@ -17,6 +18,7 @@ All application settings are configured through YML files in the ```src/main/res
 In the following sessions, we'll introduce how to configurate the source/target config files in ```src/main/resources/conf/app_{APP_CODE}.yml```.
 ## Generic Source Configuration Keys
 Following yml keys are supported for reading different data sources. These keys are defined under `source` key in the yml files.
+
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
 |`database`|optional|default|hive database name. Can also be specified with table name, such as, database_name.table_name|
@@ -28,6 +30,7 @@ Following yml keys are supported for reading different data sources. These keys 
 |`read_strategy`|optional|all|how to read data, all -  all data. latest - the latest partition.|
 |`look_back`|optional|12|number of database to read according to `regx`|
 |`disabled`|optional|false|diable this source's config|
+
 ## Flat File Specific Configuration Keys
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
@@ -38,6 +41,7 @@ Following yml keys are supported for reading different data sources. These keys 
 
 ## Generic Target Configuration Keys
 Following yml keys are supported for writing different data targets.
+
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
 |`disabled`|optional|false|diable this target's config|
@@ -45,5 +49,10 @@ Following yml keys are supported for writing different data targets.
 |`output`|implicit| |output file root path in HDFS/ELASTIC. By default it gets value from `${DE_OUTPUT_ROOT_PATH}`|
 |`output_log`|implicit| |output log root path in HDFS. By default it gets value from `${DE_LOG_ROOT_PATH}`|
 |`output_type`|optional|csv|output type supported, such as csv, paruqet, avro, json, hive, elastic.|
-|`output_partition`|optional| |output partition by column name. By default without partition column, output is partitioned by `run_date`.|
-
+|`hive_db_tbl_name`|optional| |when `output_type` is hive, use `database_name.table_name`.|
+|`idx_name`|optional| app_code|when `output_type` is elastic, this is index name.|
+|`@timestamp`|optional| |used in index name as metadata to append current timestamp to the index name to make it unique.|
+|`idx_create`|optional|false |whether to create the index before writing data.|
+|`idx_purge_on_time`|optional|false |when index is created with `@timestamp`, old indices are removed when it is `true`.|
+|`idx_alias_create`|optional|false |whether to create alias|
+|`idx_alias`|optional|idx_name|alias of the index, by default it is index name without timestamp|
