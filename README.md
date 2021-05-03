@@ -79,3 +79,50 @@ Following yml keys are supported for writing different data targets.
 **Note:**
 1. when `output_type` is elastic, the `etl_es_id` in the dataframe maps to `es.mapping.id`, which is the key of index.
 1. when `output_type` is elastic, the `etl_batch_id` defines how many batch to divide and load data to elastic in sequence.
+
+## Transformation Configuration Keys
+CDF provides some internal transformations. However, it is suggested not to use them because of overhead. The suggested way
+is to use transformations in the spark sql logic.
+
+|Key            |Request  |Default| Functions|
+|-----------|----------|-----------|----------|
+|`cleaned_null_as`|optional|"null"|which value to represent null|
+|`cleaned_date_fields`|optional| |format a list of comma separated columns as yyyy-MM-dd|
+|`cleaned_amount_fields`|optional| |format a list of comma separated columns as proper amount value|
+|`cetl_meta_enabled`|optional|false|append etl_pkey, etl_app_code, etl_start_time, and etl_end_time to data.|
+
+# Environment Variable Files
+CDF includes two environment variable files.
+* `env.properties`: It keeps application code level properties for all application under management.
+* `application.yml`: It keeps resource level properties, such as spark, hive, elastic settings.
+
+**Note:**
+The environment variable files may have `.prd` or `dev` extensions for production and non-production purpose.
+
+When CDP launches the pipeline job, it looks for the `env.properties` in following orders
+
+|Order            |Actions  |Comments|
+|-----------|----------|-----------|
+|1|search service account's own dir at `/home/${CURRENT_USER}/env.properties`|if `env.properties` may change for each run, you can generate it ahead.|
+|2|search application's own dir at `./conf/env.properties`|if `env.properties` may not change, use this approach.|
+|3|search global env settings at `/hadoop/data-products/env/env.properties`|if `env.properties` may not change and generic, use this approach.|
+
+The list of environment variable supported in `env.properties` are as follows
+
+|Key            |Request  |Default| Functions|
+|-----------|----------|-----------|----------|
+|`DF_BATCH_LATEST_URL`|optional||service url where to fetch the latest run id/date|
+|`PA_BATCH_LATEST_URL`|optional||service url where to fetch the latest run id/date|
+|`DF_BATCH_LATEST_URL`|optional||service url where to fetch the latest run id/date|
+|`FETCH_SRC_LOC`|optional|false|if true, fetch source location root as `${DE_TREE_OUTPUT}` in format of `sys-${asset}`|
+|`FETCH_RUN_ID`|optional|false|if ture, fetch run_id/date from service url and replace the one got from commandline|
+|`DE_OUTPUT_ROOT_PATH`|optional|global-tree-entity/staging|hdfs location where to keep output file|
+|`DE_LOG_ROOT_PATH`|optional|${DE_OUTPUT_ROOT_PATH}/log|hdfs location where to keep job log|
+|`DE_YARN_QUEUE`|optional| |hadoop yarn queue|
+
+# Run the Application
+CDF can run the job in local or cluster mode by following setting.
+```aidl
+export CONFIG_SPARK_MASTER=local
+export CONFIG_SPARK_MASTER=yarn-cluster
+```
