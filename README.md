@@ -32,7 +32,7 @@ Following yml keys are supported for reading different data sources. These keys 
 |Key            |Request  |Default| Functions|
 |-----------|----------|-----------|----------|
 |`path`|mandatory| |the path where to read the file. * is supported to match all.|
-|`delimitor`|optional| `|`|file fields delimitor |
+|`delimitor`|optional| `\|`|file fields delimitor |
 |`quote`|optional|`""`|file quote|
 |`optional_fields`|optional||list of comma seperated columns when they are not avaliable in source giving default value as placeholder |
 
