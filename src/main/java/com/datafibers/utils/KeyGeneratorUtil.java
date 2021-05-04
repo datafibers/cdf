@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.util.Base64;
@@ -66,7 +65,7 @@ public class KeyGeneratorUtil {
             Base64.Encoder localBASE64Encoder = Base64.getEncoder();
             try {
                 PrintWriter localPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(args[1])));
-                localPrintWriter.println(new String(localBASE64Encoder.encode(arrayOfByte)));
+                localPrintWriter.println(new String(localBASE64Encoder.encode(keyByte)));
                 localPrintWriter.close();
             } catch (IOException ioe) {
                 KeyGeneratorUtil.logger.log(Level.SEVERE,"Error: writing password file.", ioe);
