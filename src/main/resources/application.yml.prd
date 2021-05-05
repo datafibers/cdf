@@ -1,0 +1,30 @@
+spark:
+  - spark.kryoserializer.buffer.max.mb: 2000
+  - spark.kryoserializer.buffer.max: 1g
+  - spark.network.timeout: 2000
+  - spark.sql.broadcastTimeout: 14000
+  - spark.driver.userClassPathFirst: true
+  - spark.sql.orc.filterPushdown: true
+  - spark.sql.catalogImplemention: hive
+  - kryoserializer: org.apache.spark.sql.execution.columnar.CachedBatch.[[B,org.apache.spark.sql.catalyst.expressions.GenericInternalRow
+  - spark.dynamicAllocation.enabled: true
+  - spark.dynamicAllocation.maxExecutors: 100
+  - spark.shuffle.service.enabled: true
+  - spark.port.maxRetries: 100
+  - spark.maxRemoteBlockSizeFetchToMem: 2147483115 #bug in spark 2.3
+
+hive:
+  - hive.cbo.enable: false
+  - hive.metastore.kerberos.keytab.file: /etc/security/keytabs/hive.service.keytab
+  - hive.metastore.kerberos.keytab.principle: "hive/_HOST@DOMAIN"
+  - hive.metastore.uris: "thrift://localhost:9083"
+
+elastic:
+  - cluster.name: "block"
+  - es.nodes: "http://localhost,http://localhost2"
+  - es.port: "9200"
+  - es.net.http.auth.user: "test"
+  - es.nodes.wan.only: true
+  - es.net.http.auth.pass.path: "prd/elastic/pass.txt"
+  - es.key.path: "prd/elastic/key.txt"
+  - es.net.ssl: true

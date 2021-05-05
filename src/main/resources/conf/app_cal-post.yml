@@ -1,0 +1,18 @@
+sources:
+  - alias: prod
+    type: "file driver"
+    path: !path "src_test/resources/data/cal/1"
+
+  - alias: isr
+    type: "file reference"
+    path: !path "src_test/resources/data/cal/2"
+
+  - alias: trm
+    type: "file driver"
+    path: !path "src_test/resources/data/cal/3"
+
+clean_null_as: "null"
+sql_init: true
+output_type: "parquet"
+etl_meta_data: true
+sql_casesensitive: true

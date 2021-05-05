@@ -1,0 +1,21 @@
+sources:
+  - alias: "gwes_cia"
+    type: "file driver"
+    path: !path "src_test/resources/data/ftek_us_prod/${cob}"
+    delimiter: "|"
+    quote: "\""
+    optional_fields_key: "alias"
+    optional_fields: >
+      new_col1,new_col2
+      new_col3
+
+sql_init: true
+etl_meta_data: true
+outputs:
+  - index_name: "index_name/001"
+    output_type: "elastic"
+    output_log: !path "${DE_LOG_ROOT_PATH}/file-cob"
+    disabled: true
+
+  - output: !path "${DE_OUTPUT_ROOT_PATH}/file-cob"
+    output_log: !path "${DE_LOG_ROOT_PATH}/file-cob"

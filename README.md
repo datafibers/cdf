@@ -113,7 +113,6 @@ The list of environment variable supported in `env.properties` are as follows
 |-----------|----------|-----------|----------|
 |`DF_BATCH_LATEST_URL`|optional||service url where to fetch the latest run id/date|
 |`PA_BATCH_LATEST_URL`|optional||service url where to fetch the latest run id/date|
-|`DF_BATCH_LATEST_URL`|optional||service url where to fetch the latest run id/date|
 |`FETCH_SRC_LOC`|optional|false|if true, fetch source location root as `${DE_TREE_OUTPUT}` in format of `sys-${asset}`|
 |`FETCH_RUN_ID`|optional|false|if ture, fetch run_id/date from service url and replace the one got from commandline|
 |`DE_OUTPUT_ROOT_PATH`|optional|global-tree-entity/staging|hdfs location where to keep output file|
@@ -130,5 +129,5 @@ To run the job, there are three options as follows.
 ```shell
 ./cdf_processing.sh ${app_code}
 ./cdf_processing.sh ${app_code} ${cob/closed_business_date}
-./cdf_processing.sh ${app_code} ${cob/closed_business_date}  ${spark_executor} ${spark_cores} ${cob/spark_executor_memory} ${cob/spark_driver_memory}
+./cdf_processing.sh ${app_code} ${cob/closed_business_date} ${spark_executor} ${spark_cores} ${spark_executor_memory} ${spark_driver_memory}
 ```

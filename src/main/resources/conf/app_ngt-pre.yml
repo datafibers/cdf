@@ -1,0 +1,6 @@
+sources:
+  - table: "ngt_xds_prod.ngt_tree_attribute"
+    type: "driver"
+    row_filter: "partition by grid order by related_case_update_time desc"
+
+sql_init: true

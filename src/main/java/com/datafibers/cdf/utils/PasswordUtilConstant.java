@@ -1,4 +1,4 @@
-package com.datafibers.utils;
+package com.datafibers.cdf.utils;
 
 public class PasswordUtilConstant {
     public static final int DEFAULT_AES_KEY_LENGTH = 128;

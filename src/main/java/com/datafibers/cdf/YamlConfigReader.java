@@ -1,4 +1,4 @@
-package com.datafibers;
+package com.datafibers.cdf;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
