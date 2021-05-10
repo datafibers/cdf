@@ -1,0 +1,7 @@
+spark:
+  - spark.master: "local"
+  - spark.local.dir: "/tmp/spark-tmp"
+  - spark.sql.warehouse.dir: "/tmp/user/hive/warehouse"
+  - hive.metastore.warehouse.dir: "/tmp/user/hive/warehouse"
+  - derby.system.home: "/tmp/user/hive"
+  - kryoserializer: org.apache.spark.sql.execution.columnar.CachedBatch.[[B,org.apache.spark.sql.catalyst.expressions.GenericInternalRow

@@ -139,20 +139,8 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jetty</artifactId>
-                    <groupId>org.mortbay.jetty</groupId>
                 </exclusion>
             </exclusions>
         </dependency>

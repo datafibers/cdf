@@ -1,0 +1,18 @@
+sources:
+  - alias: ngt
+    type: "file driver"
+    path: !path "dev1/${para_1}/ngt.bsv"
+    read_strategy: "latest"
+
+output_type: elastic
+index_name: "index_name/001"
+idx_create: "true"
+idx_purge_on_time: "true"
+idx_alias_create: "true"
+idx_setting: >
+  {
+    "number_of_replica": 0,
+    "refresh_interval": -1,
+    "number_of_shards": 1,
+    "translog.durability": "async"
+  }

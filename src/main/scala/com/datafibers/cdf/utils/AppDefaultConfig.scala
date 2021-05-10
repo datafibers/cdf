@@ -27,7 +27,8 @@ object AppDefaultConfig {
   // default for file source
   val DEFAULT_FILE_INPUT_PROS =
     Map("header" -> "true", "delimiter" -> "|", "inferSchema" -> "false", "ignoreLeadingWhiteSpace" -> "true",
-      "ignoreTrailingWhiteSpace" -> "true", "hasExtraHeader" -> "false", "extraHeaderRowCount" -> "false",
+      "ignoreTrailingWhiteSpace" -> "true", "hasExtraHeader" -> "false", "extraHeaderRowCount" -> "1",
+      "hasFooterRowCount" -> "false",
       "headerTrailerInclusiveFooter" -> "false", "header_delimiter" -> "|", "quote" -> "")
 
   val DEFAULT_FILE_OUTPUT_PROS =

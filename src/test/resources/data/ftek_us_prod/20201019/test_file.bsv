@@ -1,0 +1,4 @@
+cus_cde_branch|cus_cde_country|cus_cde_cust_desc
+cus_cde_branch1|cus_cde_country1|cus_cde_cust_desc1
+cus_cde_branch2|cus_cde_country2|cus_cde_cust_desc2
+cus_cde_branch3|cus_cde_country3|cus_cde_cust_desc3
