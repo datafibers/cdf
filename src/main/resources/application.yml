@@ -28,3 +28,5 @@ elastic:
   - es.net.http.auth.pass.path: "uat/elastic/pass.txt"
   - es.key.path: "uat/elastic/key.txt"
   - es.net.ssl: true
+  - es.rowcnt.compare.retry.count: "30"
+  - es.rowcnt.compare.retry.wait: "60s"
