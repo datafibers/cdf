@@ -8,7 +8,7 @@ object AppDefaultConfig {
   val DEFAULT_APP_DATE = "1900-01-01"
 
   // pattern to replace from column name so that spark sql support such col names
-  val BAD_CHAR_IN_COL_NAME_PATTERN = "\\s|\\?|\\(|\\)||\\-|\\$|\\@|\\[|\\]|\\]"
+  val BAD_CHAR_IN_COL_NAME_PATTERN = "\\s|\\?|\\(|\\)|\\-|\\$|\\@|\\[|\\]"
 
   // default for help function
   lazy val DEFAULT_UDF_CURRENCIES: List[String] = List("USD", "CAD", "CHF", "ERU", "JPY", "RMB")
