@@ -1,7 +1,7 @@
 sources:
-  - alias: "gwes_cia"
+  - alias: "file_alias"
     type: "file driver"
-    path: !path "src_test/resources/data/ftek_us_prod/${cob}"
+    path: !path "src/test/resources/data/ftek_us_prod/${cob}"
     delimiter: "|"
     quote: "\""
     optional_fields_key: "alias"

@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class YamlConfigReader {
     private static Constructor constructor = new MyConstructor();
 
-    private static Pattern systemPropertyMatcher = Pattern.compile("\\$\\{([^}^{]+)\\}}");
+    private static Pattern systemPropertyMatcher = Pattern.compile("\\$\\{([^}^{]+)\\}");
 
     private static class ImportConstruct extends AbstractConstruct {
         @Override

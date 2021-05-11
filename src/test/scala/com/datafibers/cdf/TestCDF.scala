@@ -13,24 +13,12 @@ class TestCDF extends FunSuite with SourceToDS with BeforeAndAfterEach with Setu
 
   implicit val spark = sparkEnvInitialization(this.getClass.getName)
   System.setProperty("DE_OUTPUT_ROOT_PATH", "output")
-  System.setProperty("DE_OUTPUT_ROOT_PATH", "output/log")
+  System.setProperty("DE_LOG_ROOT_PATH", "output/log")
 
   val outputFileDirectory = System.getProperty("DE_OUTPUT_ROOT_PATH")
   FileUtils.deleteDirectory(new File(outputFileDirectory))
 
-  def runUnitTest(appCode: String, cob: String = "20200119")(implicit spark: SparkSession) = {
-    val args = Array(s"src/main/resources/conf/app_${appCode}.yml", "cob")
-    val config = setAppConfig(args)
-    sqlRunner(config, s"setup/tsql_${appCode}.sql")(spark)
-
-    val outputFileDirectory = config("output").toString
-    FileUtils.deleteDirectory(new File(outputFileDirectory))
-    setAppRun(args, spark)
-    val actualDF = readDataFromFileAsDF(config.getOrElse("output_type", "").toString, outputFileDirectory)
-    actualDF
-  }
-
-  test ("row count check") {
+  ignore ("row count check using empty yml config") {
     val appCode = "empty-cob"
     val args = Array(s"src/main/resources/conf/app_${appCode}.yml", "cob")
     val config = setAppConfig(args)
@@ -46,6 +34,17 @@ class TestCDF extends FunSuite with SourceToDS with BeforeAndAfterEach with Setu
     spark.sql("select count(*) as cnt from kdb_uk_prod.spot_rate").show
     assert(actualDFCnt === expectDFCnt)
     spark.sql("drop database if exists kdb_uk_prod cascade")
+  }
+
+  test ("row count check with file source and init sql") {
+    val appCode = "file-cob"
+    val cob = "20201019"
+    System.setProperty("cob", s"${cob}") // since the yml file contains ${cob}, it should be in sys.properties to substitute
+    val args = Array(s"src/main/resources/conf/app_${appCode}.yml", s"${cob}")
+    setAppRun(args, spark)
+    val actualDFCnt = spark.read.parquet(s"output/direct-insert/run_date=${cob}").count
+    val expectDFCnt = readDataFromFileAsDF("csv", s"src/test/resources/data/ftek_us_prod/${cob}").count
+    assert(actualDFCnt === expectDFCnt)
   }
 
 }

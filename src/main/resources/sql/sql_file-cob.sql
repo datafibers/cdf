@@ -5,10 +5,10 @@ select
 '${cob}' as cob,
 '${ppd}' as previous_processed_date
 from
-kdb_uk_prod.spot_rate; --driver
+file_alias; --driver
 
 ${cp_test001};
 
 ${cp_test002};
 
-select ${cp_test003} from spot_rate;
+select ${cp_test003} from file_alias;
