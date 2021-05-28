@@ -32,7 +32,8 @@ trait SparkWriter extends SetupFunc with SparkSQLFunc {
   def writeDFToElastic(processDf: DataFrame, index: String, inputConfig: Map[String, Any]) = {
     val indexTimeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
     val createIndex = index.split("@distributeBy_")(0).replaceAll("@timestamp", s"_${indexTimeStamp}")
-    val deleteIndex = index.split("@distributeBy_")(0).replaceAll("@timestamp", "") // wildcard to delete index and alias
+    val prefixIndex = index.split("@distributeBy_")(0).replaceAll("@timestamp", "")
+    val deleteIndex = prefixIndex + "_2*" // wildcard to delete index and alias starting with timestamp
     val hasEsMappingId = processDf.columns.contains("etl_es_id")
     val hasEsBatchId = processDf.columns.contains("etl_batch_id")
     val body = schemaToMapping(inputConfig, processDf).toString
@@ -50,9 +51,9 @@ trait SparkWriter extends SetupFunc with SparkSQLFunc {
     if (inputConfig.getOrElse("idx_create", "false").toString == "true")
       writerLogger.info(s"Elastic call: create idx with schema having response = " + curlClient("PUT", host, port, createIndex, body, user, pass))
     if (inputConfig.getOrElse("idx_purge_on_time", "false").toString == "true")
-      writerLogger.info(s"Elastic call: delete old idx with response = " + curlClient("DELETE", host, port, s"${deleteIndex}*,-${createIndex}", body, user, pass))
+      writerLogger.info(s"Elastic call: delete old idx with response = " + curlClient("DELETE", host, port, s"${deleteIndex},-${createIndex}", body, user, pass))
     if (inputConfig.getOrElse("idx_alias_create", "false").toString == "true") {
-      val alias = inputConfig.getOrElse("idx_alias", deleteIndex).toString
+      val alias = inputConfig.getOrElse("idx_alias", prefixIndex).toString
       val bodyDelete = "{\"actions\":[{\"add\":{\"index\":\"" + createIndex + "\",\"alias\":\"" + alias + "\"}}]}"
       writerLogger.info(s"Elastic call: created alias = ${alias} for index = ${createIndex} with response = " + curlClient("POST", host, port, "_aliases", body, user, pass))
     }
