@@ -41,6 +41,10 @@ trait SourceToDS extends SparkSQLFunc with SparkReader with HelpFunc {
               readFromElastic(config)
               applyTableRowFilter(config)
               findLastProcessFromFile(config)
+            } else if (tableType.contains("jdbc")) {
+              readFromJDBC(config)
+              applyTableRowFilter(config)
+              findLastProcessFromFile(config)
             } else {
               readFromHive(config)
               applyTableRowFilter(config)
