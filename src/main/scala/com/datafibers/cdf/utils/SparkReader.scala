@@ -219,4 +219,29 @@ trait SparkReader extends HelpFunc with SparkSQLFunc {
       .createOrReplaceTempView(s"${idxName}-${typeName}")
   }
 
+  def readFromJDBC(jdbcProperties: Map[String, String])(implicit spark: SparkSession) = {
+    val jdbcUrl = jdbcProperties.getOrElse("jdbcUrl", "")
+    val query = jdbcProperties.getOrElse("query", "")
+    val user = jdbcProperties.getOrElse("user", "")
+    val alias = getAliasFromConfig(jdbcProperties)
+    val driver =
+      if(jdbcUrl.contains("oracle"))
+        "oracle.jdbc.driver.OracleDriver"
+      else if(jdbcUrl.contains("mysql"))
+        "com.mysql.jdbc.Driver"
+      else if(jdbcUrl.contains("sqlserver"))
+        "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      else ""
+
+    spark.read.format("jdbc")
+      .option("url", jdbcUrl)
+      .option("dbtable", query) // change to query in spark 2.4
+      .option("user", user)
+      .option("password", spark.sparkContext.hadoopConfiguration.getPassword("pwdjceks").toString)
+      .option("driver", driver)
+      .load()
+      .createOrReplaceTempView(s"${alias}")
+  }
+
+
 }

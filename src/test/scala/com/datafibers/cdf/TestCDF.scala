@@ -18,7 +18,7 @@ class TestCDF extends FunSuite with SourceToDS with BeforeAndAfterEach with Setu
   val outputFileDirectory = System.getProperty("DE_OUTPUT_ROOT_PATH")
   FileUtils.deleteDirectory(new File(outputFileDirectory))
 
-  ignore ("row count check using empty yml config") {
+  test ("row count check using empty yml config") {
     val appCode = "empty-cob"
     val args = Array(s"src/main/resources/conf/app_${appCode}.yml", "cob")
     val config = setAppConfig(args)
@@ -33,7 +33,6 @@ class TestCDF extends FunSuite with SourceToDS with BeforeAndAfterEach with Setu
     spark.sql("show databases")
     spark.sql("select count(*) as cnt from kdb_uk_prod.spot_rate").show
     assert(actualDFCnt === expectDFCnt)
-    spark.sql("drop database if exists kdb_uk_prod cascade")
   }
 
   test ("row count check with init sql and ingested parameters") {
@@ -52,7 +51,7 @@ class TestCDF extends FunSuite with SourceToDS with BeforeAndAfterEach with Setu
   test ("comparing files") {
     DFCompare.main(
       Array("src/test/resources/data/data_compare/a", "src/test/resources/data/data_compare/b", "col1",
-        "1.0,col4,2,3", System.getProperty("DE_OUTPUT_ROOT_PATH") + "/compare_result")
+        "1.0", System.getProperty("DE_OUTPUT_ROOT_PATH") + "/compare_result")
     )
   }
 
