@@ -42,9 +42,9 @@ Following yml keys are supported for writing different data targets.
 |-----------|----------|----------|-----------|----------|
 |`disabled`|all|optional|false|disable this target's config|
 |`outputs`|all|optional| |when it is specified, you can define multiple output under this key|
-|`output`|all|implicit| |output file root path in HDFS/ELASTIC. By default it gets value from `${DE_OUTPUT_ROOT_PATH}`|
+|`output`|file|implicit| |output file root path in HDFS. By default it gets value from `${DE_OUTPUT_ROOT_PATH}`|
 |`output_log`|all|implicit| |output log root path in HDFS. By default it gets value from `${DE_LOG_ROOT_PATH}`|
-|`output_type`|all|optional|csv|output type supported, such as csv, paruqet, avro, json, hive, elastic.|
+|`output_type`|all|optional|csv|output type supported, such as csv, parquet, avro, json, hive, elastic.|
 |`hive_db_tbl_name`|hive|optional| |when `output_type` is hive, use `database_name.table_name`.|
 |`idx_name`|elastic|optional| app_code|when `output_type` is elastic, this is index name.|
 |`@timestamp`|elastic|optional| |used in index name as metadata to append current timestamp to the index name to make it unique.|
