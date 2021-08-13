@@ -164,11 +164,11 @@ trait SparkWriter extends SetupFunc with SparkSQLFunc {
   }
 
   def writeDFToJSON(processDf: DataFrame, filePath: String) = {
-    processDf.write.mode(SaveMode.Overwrite).format("json").option("compression", "true").save(filePath)
+    processDf.write.mode(SaveMode.Overwrite).format("json").save(filePath)
   }
 
   def appendDFToJSON(processDf: DataFrame, filePath: String) = {
-    processDf.write.mode(SaveMode.Append).format("json").option("compression", "true").save(filePath)
+    processDf.write.mode(SaveMode.Append).format("json").save(filePath)
   }
 
   def writeDFToHive(processDf: DataFrame, tableName: String) = {
