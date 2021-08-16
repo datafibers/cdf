@@ -108,7 +108,7 @@ trait SparkSQLFunc extends HelpFunc {
       .replaceAll("--.*\n", "\n")
       .replaceAll("\\$\\{DE_OUTPUT_ROOT_PATH}", System.getProperty("DE_OUTPUT_ROOT_PATH", AppDefaultConfig.DEFAULT_CONF_STAGE_OUTPUT_ROOT_PATH))
       .replaceAll("\\$\\{cob}", System.getProperty("cob"))
-      .replaceAll("\\$\\{pdd}",  System.getProperty("ppd", AppDefaultConfig.DEFAULT_APP_DATE))
+      .replaceAll("\\$\\{ppd}",  System.getProperty("ppd", AppDefaultConfig.DEFAULT_APP_DATE))
 
     // replace additional parameter from para_1 to para_n
     val otherPara = System.getProperty("other_para")
