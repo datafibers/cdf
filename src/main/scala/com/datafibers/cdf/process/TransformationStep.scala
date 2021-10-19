@@ -22,14 +22,23 @@ class TransformationStep extends Serializable with SourceToDS with SparkWriter w
 
     // run the spark sql on registered tables
     val result = sqlRunner(inputConfig, sqlFilePath)
+    val rowCnt = result.count
 
     // apply generic internal transformations
     val cleanedRes = etlMetaAppender(inputConfig, genericNullCleaner(inputConfig, genericAmountCleaner(inputConfig, result)))
 
     // when output specified partition, we only create last tun date file. Or else, keep all run dates.
     if (inputConfig.getOrElse("dry_run", "false") == "false") {
-      writeDFToOutputs(inputConfig, cleanedRes, lastProcessedDate)
-      context.outputInfo += ("last_processed_date" -> lastProcessedDate, "row_processed" -> result.count.toString)
+      val tarZeroRow = inputConfig.getOrElse("load_zero_row", "ignore").toString
+
+      if(rowCnt == 0 && tarZeroRow == "exception")
+        throw new RuntimeException("load_zero_row: exception setting throw exception when loading zero rows")
+      else if (rowCnt == 0 && tarZeroRow == "ignore")
+        appLogger.warn("[CDF] ignore loading zero rows")
+      else
+        writeDFToOutputs(inputConfig, cleanedRes, lastProcessedDate)
+
+      context.outputInfo += ("last_processed_date" -> lastProcessedDate, "row_processed" -> rowCnt.toString)
     }
   }
 }
